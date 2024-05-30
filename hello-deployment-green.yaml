@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deployment-green
+  labels:
+    app: hello
+    version: green
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: hello
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: hello
+        version: v2
+    spec:
+      containers:
+      - name: hello-container
+        image: europe-west1-docker.pkg.dev/qwiklabs-gcp-02-063a538c05c1/my-repo/hello:v2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+        - name: VERSION
+          value: "v2"
